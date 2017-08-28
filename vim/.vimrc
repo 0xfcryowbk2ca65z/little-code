@@ -4,7 +4,7 @@ set nocompatible " 兼容性
 
 set helplang=cn " 语言设置
 
-set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936 " 打开文件时的编
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936 " 打开文件时的编码
 
 set fileencoding=utf-8 " 保存文件时的编码
 
@@ -42,9 +42,15 @@ set showcmd " 显示输入的命令
 
 set incsearch " 搜索忽略大小写
 
+set ttymouse=sgr " 鼠标的处理方式，兼容 xterm2 方式
+
 autocmd BufNewFile *.php exec ":call SetPhpTitle()"
+
+autocmd BufNewFile *.sh exec ":call SetBashTitle()"
+
 let $now_date_time  = strftime("%Y-%m-%d %H:%M:%S %A")
 let $file_path_name = expand("%:p:%t")
+
 func SetPhpTitle()
   call setline(1, "<?php")
   call setline(2, "\/**")
@@ -53,5 +59,11 @@ func SetPhpTitle()
   call setline(5, "*/")
   call setline(6, "")
 endfunction
-autocmd BufNewFile * normal G
 
+func SetBashTitle()
+    call setline(1, "#!/bin/bash")
+    call setline(2, "")
+endfunction
+
+" 光标定位到末行
+autocmd BufNewFile * normal G
